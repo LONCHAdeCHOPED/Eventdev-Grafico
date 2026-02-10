@@ -28,11 +28,11 @@ public class Usuario implements Exportable {
      */
     public Usuario(String nombre, String email, String telefono, boolean esVip) {
         if (!UtilidadValidacion.esEmailValido(email)) {
-            throw new IllegalArgumentException("Email inválido");
+            throw new IllegalArgumentException("Email inválido: " + email);
         }
-        /*if (UtilidadValidacion(telefono)) {
-            throw new IllegalArgumentException("Teléfono inválido");
-        }*/
+        if (!UtilidadValidacion.esTelefonoValido(telefono)) {
+            throw new IllegalArgumentException("Teléfono inválido: " + telefono);
+        }
 
         this.nombre = nombre;
         this.email = email;

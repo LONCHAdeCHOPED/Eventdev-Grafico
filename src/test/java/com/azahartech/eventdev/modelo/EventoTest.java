@@ -1,48 +1,69 @@
 package com.azahartech.eventdev.modelo;
 
 import org.junit.jupiter.api.Test;
-
+import java.time.LocalDate;
 import static org.junit.jupiter.api.Assertions.*;
 
 class EventoTest {
 
+    private Concierto evento;
+    private Recinto recinto;
+    private LocalDate fecha;
+
+
     @Test
-    void consultarNombre() {
+    void testConstructor() {
+        assertEquals("Concierto", evento.consultarNombre());
+        assertEquals(fecha, evento.consultarFecha());
+        assertEquals(recinto, evento.consultarRecinto());
+        assertEquals(50.0, evento.consultarPrecio());
+        assertEquals("PROGRAMADO", evento.consultarEstado());
     }
 
     @Test
-    void consultarFecha() {
+    void testConsultarNombre() {
+        assertEquals("Concierto", evento.consultarNombre());
     }
 
     @Test
-    void consultarPrecio() {
+    void testConsultarFecha() {
+        assertEquals(fecha, evento.consultarFecha());
     }
 
     @Test
-    void consultarRecinto() {
+    void testConsultarPrecio() {
+        assertEquals(50.0, evento.consultarPrecio());
     }
 
     @Test
-    void consultarId() {
+    void testConsultarRecinto() {
+        assertEquals(recinto, evento.consultarRecinto());
     }
 
     @Test
-    void consultarEstado() {
+    void testConsultarEstado() {
+        assertEquals("PROGRAMADO", evento.consultarEstado());
     }
 
     @Test
-    void modificarPrecio() {
+    void testModificarPrecio() {
+        evento.modificarPrecio(75.0);
+        assertEquals(75.0, evento.consultarPrecio());
     }
 
     @Test
-    void modificarEstado() {
+    void testModificarEstado() {
+        evento.modificarEstado("CANCELADO");
+        assertEquals("CANCELADO", evento.consultarEstado());
     }
 
     @Test
-    void calcularPrecioVentaRecomendado() {
+    void testCalcularPrecioVentaRecomendado() {
+        assertEquals(6500.0, evento.calcularPrecioVentaRecomendado());
     }
 
     @Test
-    void calcularCosteOperativo() {
+    void testConsultarId() {
+        assertNull(evento.consultarId());
     }
 }

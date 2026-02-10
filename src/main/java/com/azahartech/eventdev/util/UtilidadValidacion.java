@@ -24,4 +24,12 @@ public class UtilidadValidacion {
             return fecha.isAfter(LocalDate.now());
         }
     }
+    /**
+     * Valida si un telefono tiene 9 digitos
+     * @param telefono
+     * @return
+     */
+    public static boolean esTelefonoValido(String telefono) {
+        return telefono.matches("^[0-9]{9}");
+    }
 }

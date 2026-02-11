@@ -10,30 +10,43 @@ public class Concierto extends Evento {
     private String listaCanciones;
 
     // CONSTRUCTOR
-    public Concierto(String nombre, LocalDate fecha, Recinto recinto, double precioEntrada,
+    public Concierto(String nombre, LocalDate fecha, Recinto recinto, double precioEntrada, TipoEvento tipoEvento,
                      String bandaPrincipal, double costeMontaje, String listaCanciones) {
 
-        super(nombre, fecha, recinto, precioEntrada);
+        super(nombre, fecha, recinto, precioEntrada, tipoEvento);
         this.bandaPrincipal = bandaPrincipal;
         this.costeMontaje = costeMontaje;
         this.listaCanciones = listaCanciones;
     }
 
-    public String consultarBandaPrincipal() {
+    //getters
+
+
+    public String getBandaPrincipal() {
         return bandaPrincipal;
     }
 
-    public double consultarCosteMontaje() {
-        return costeMontaje;
-    }
-
-    public String consultarListaCanciones() {
+    public String getListaCanciones() {
         return listaCanciones;
     }
 
-    // SETTERS opcionales
-    public void modificarListaCanciones(String nuevaLista) {
-        this.listaCanciones = nuevaLista;
+    public double getCosteMontaje() {
+        return costeMontaje;
+    }
+
+    // SETTERS
+
+
+    public void setBandaPrincipal(String bandaPrincipal) {
+        this.bandaPrincipal = bandaPrincipal;
+    }
+
+    public void setCosteMontaje(double costeMontaje) {
+        this.costeMontaje = costeMontaje;
+    }
+
+    public void setListaCanciones(String listaCanciones) {
+        this.listaCanciones = listaCanciones;
     }
 
     @Override

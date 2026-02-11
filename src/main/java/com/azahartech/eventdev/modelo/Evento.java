@@ -1,5 +1,7 @@
 package com.azahartech.eventdev.modelo;
 
+import com.azahartech.eventdev.util.UtilidadValidacion;
+
 import java.time.LocalDate;
 
 /**
@@ -19,56 +21,82 @@ public abstract class Evento {
     private Recinto recinto;
     private double precio;
     private String id;
-    private String estado;
+    private EstadoEvento estado;
+    private TipoEvento tipo;
 
     // Metodo
     /**
      * Constructor para crear un nuevo evento.
      * Inicializa los atributos básicos comunes a todos los tipos de eventos.
-     * El estado se establece por defecto como "PROGRAMADO".
+     * El estado se establece por defecto como "PLANIFICADO".
      */
-    public Evento(String nombre, LocalDate fecha, Recinto recinto, double precio) {
+    public Evento(String nombre, LocalDate fecha, Recinto recinto, double precio, TipoEvento nuevoTipo) {
         this.nombre = nombre;
         this.fecha = fecha;
         this.recinto = recinto;
         this.precio = precio;
-        this.estado = "PROGRAMADO";
+        estado = EstadoEvento.PLANIFICADO;
+        tipo = nuevoTipo;
+        this.id = UtilidadValidacion.generaraIdAutomatico(nombre);
+
     }
 
-    // CONSULTAS
+    // Getters
 
-    public String consultarNombre() {
+    public String getNombre() {
         return nombre;
     }
 
-    public LocalDate consultarFecha() {
+    public LocalDate getFecha() {
         return fecha;
     }
 
-    public double consultarPrecio() {
+    public double getPrecio() {
         return precio;
     }
 
-    public Recinto consultarRecinto() {
+    public Recinto getRecinto() {
         return recinto;
     }
 
-    public String consultarId() {
+    public String getId() {
         return id;
     }
 
-    public String consultarEstado() {
+    public EstadoEvento getEstado() {
         return estado;
     }
 
-    // Setters
-
-    public void modificarPrecio(double nuevoPrecio) {
-        this.precio = nuevoPrecio;
+    public TipoEvento getTipo() {
+        return tipo;
     }
 
-    public void modificarEstado(String nuevoEstado) {
-        this.estado = nuevoEstado;
+
+    // Setters
+
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public void setFecha(LocalDate fecha) {
+        this.fecha = fecha;
+    }
+
+    public void setRecinto(Recinto recinto) {
+        this.recinto = recinto;
+    }
+
+    public void setPrecio(double precio) {
+        this.precio = precio;
+    }
+
+    public void setEstado(EstadoEvento estado) {
+        this.estado = estado;
+    }
+
+    public void setTipo(TipoEvento tipo) {
+        this.tipo = tipo;
     }
 
     public final double calcularPrecioVentaRecomendado() {
@@ -77,5 +105,8 @@ public abstract class Evento {
 
     public abstract double calcularCosteOperativo();
 
+    public void mostrarInformacion(){
+        System.out.printf("---EVENTO---%nEl evento %s se realizará el dia %s en %s%n---%n", nombre, fecha, recinto.getNombre());
+    }
 }
 

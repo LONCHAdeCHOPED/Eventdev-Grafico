@@ -32,4 +32,28 @@ public class UtilidadValidacion {
     public static boolean esTelefonoValido(String telefono) {
         return telefono.matches("^[0-9]{9}");
     }
+
+    /**
+     * Este metodo genera un ID Automaticamente
+     *
+     * Formato:
+     * 1 Palabra: Los 5 primeros caracteres
+     * 5 Palabra: Cada sigla de una palabra
+     *
+     * @param nombre
+     * @return devuelve un ID
+     */
+    public static String generaraIdAutomatico(String nombre){
+        final String PREDETERMINADO = "DEFAU";
+        nombre = (nombre != null) ? nombre : PREDETERMINADO;
+        String resultado;
+        int año = LocalDate.now().getYear();
+
+        String siglas = nombre.toUpperCase().substring(0, (nombre.length() > 5)? 5: nombre.length());
+
+
+        resultado = String.format("EVT-%s-%s", año, siglas);
+
+        return resultado;
+    }
 }

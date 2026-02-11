@@ -113,18 +113,20 @@ public class Usuario implements Exportable {
         return "\t<usuario>\n" +
                 "\t\t<nombre>" + nombre + "</nombre>\n" +
                 "\t\t<email>" + email + "</email>\n" +
+                "\t\t<telefono" + telefono + "</telefono>\n" +
                 "\t\t<esVip>" + esVip + "</esVip>\n" +
                 "\t</usuario>\n";
     }
 
     /**
      * Convierte los datos del usuario a formato CSV.
-     * @return una representación en CSV del usuario en el orden: nombre, email, esVip
+     * @return una representación en CSV del usuario en el orden: nombre, email, telefono, esVip
      */
     @Override
     public String aCSV() {
         return  nombre + "," +
                 email + "," +
+                telefono + "," +
                 esVip;
     }
 

@@ -1,5 +1,7 @@
 package com.azahartech.eventdev.modelo;
 
+import com.azahartech.eventdev.util.UtilidadValidacion;
+
 import java.time.LocalDate;
 
 /**
@@ -35,6 +37,7 @@ public abstract class Evento {
         this.precio = precio;
         estado = EstadoEvento.PLANIFICADO;
         tipo = nuevoTipo;
+        this.id = UtilidadValidacion.generaraIdAutomatico(nombre);
 
     }
 

@@ -37,8 +37,12 @@ public class UtilidadValidacion {
      * Este metodo genera un ID Automaticamente
      *
      * Formato:
-     * 1 Palabra: Los 5 primeros caracteres
-     * 5 Palabra: Cada sigla de una palabra
+     * 1 Palabra: AAAAA
+     * 2 Palabra: AAABB
+     * 3 Palabra: AABBC
+     * 4 Palabra: AABCD
+     * 5 Palabra: ABCDE
+     * Mas de 6 : ABCDE
      *
      * @param nombre
      * @return devuelve un ID
@@ -47,7 +51,7 @@ public class UtilidadValidacion {
         String resultado;
 
         final String PREDETERMINADO = "DEFAU";
-        nombre = (nombre != null && nombre != "") ? nombre : PREDETERMINADO;
+        nombre = (nombre != null && nombre.strip() != "") ? nombre.strip() : PREDETERMINADO;
 
         int año = LocalDate.now().getYear();
         String siglas;

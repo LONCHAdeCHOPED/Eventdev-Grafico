@@ -21,5 +21,6 @@ class UtilidadValidacionTest {
     void generaraIdAutomatico_DebeDevolverTrue_SiElIdEsValidoConUnNombreNulo() {
         assertEquals("EVT-"+ LocalDate.now().getYear()+"-DEFAU", UtilidadValidacion.generaraIdAutomatico(null));
         assertEquals("EVT-"+ LocalDate.now().getYear()+"-DEFAU", UtilidadValidacion.generaraIdAutomatico(""));
+        assertEquals("EVT-"+ LocalDate.now().getYear()+"-DEFAU", UtilidadValidacion.generaraIdAutomatico("       "));
     }
 }

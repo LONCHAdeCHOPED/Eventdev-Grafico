@@ -1,4 +1,4 @@
-package com.azahartech.eventdev;
+package com.azahartech.eventdev.presentacion;
 
 public class App {
     public static void main(String[] args) {

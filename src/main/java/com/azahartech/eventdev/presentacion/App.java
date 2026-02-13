@@ -92,6 +92,7 @@ public class App {
         TipoEvento tipo;
         int aforoMaximo = 0;
 
+        int opcion;
 
         System.out.print("Introduce el nombre del evento:");
         nombre = SCANNER.nextLine();
@@ -149,6 +150,22 @@ public class App {
                 continuidad = false;
             }
         }while (!continuidad);
+
+        do {
+            opcion = -1;
+            System.out.println("Dime el tipo de evento que es: ");
+            System.out.println("""
+                    1. CONCIERTO
+                    2. TEATRO
+                    3. DEPORTE
+                    4. FESTIVAL
+                    """);
+            System.out.print("Dime una opcion:");
+            if (opcion < 1 && opcion > 4){
+                System.out.println("Error: La opcion es invalida");
+            }
+        } while (opcion < 1 && opcion > 4);
+
 
 
     }

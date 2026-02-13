@@ -1,0 +1,128 @@
+package com.azahartech.eventdev.servicio;
+
+import com.azahartech.eventdev.modelo.*;
+import com.azahartech.eventdev.datos.RepositorioGenerico;
+
+import java.time.LocalDate;
+import java.util.*;
+
+/**
+ * Clase ServicioEvento
+ */
+public class ServicioEvento {
+    private RepositorioGenerico<Evento> repo = new RepositorioGenerico<>();
+    private HashMap<String, Evento> mapaEventos = new HashMap<>();
+
+    /**
+     * Añadir un evento
+     * @param nuevoEvento
+     */
+    public void agregarEvento(Evento nuevoEvento) {
+        repo.guardar(nuevoEvento);
+        mapaEventos.put(nuevoEvento.getId(), nuevoEvento);
+    }
+
+    /**
+     * Buscar un evento por id
+     * @param idABuscar
+     * @return
+     */
+    public Evento buscarEventoPorId(String idABuscar) {
+        return mapaEventos.get(idABuscar);
+    }
+
+    /**
+     * Buscar un evento por precio mas alto
+     * @return
+     */
+    public Evento buscarEventoMasCaro() {
+        List<Evento> eventos = repo.listar();
+        if (eventos.isEmpty()) return null;
+
+        Evento masCaro = eventos.get(0);
+
+        for (int i = 1; i < eventos.size(); i++) {
+            if (eventos.get(i).getPrecio() > masCaro.getPrecio()) {
+                masCaro = eventos.get(i);
+            }
+        }
+        return masCaro;
+    }
+
+    /**
+     * Mostrar catalogo
+     */
+    public void mostrarTodoElCatalogo() {
+        mapaEventos.values().forEach(Evento::mostrarInformacion);
+    }
+
+    /**
+     * Eliminar eventos pasados
+     */
+    public void eliminarEventosPasados() {
+        Iterator<Evento> iterador = repo.listar().iterator();
+        while (iterador.hasNext()) {
+            Evento e = iterador.next();
+            if (e.getFecha().isBefore(LocalDate.now())) {
+                mapaEventos.remove(e.getId());
+                iterador.remove();
+            }
+        }
+    }
+
+    /**
+     * Contar eventos gratuitos
+     * @return
+     */
+    public long contarEventosGratuitos() {
+        return mapaEventos.values().stream()
+                .filter(e -> e.getPrecio() == 0)
+                .count();
+    }
+
+    /**
+     * Contar eventos por aforo
+     * @param aforoMinimo
+     * @return
+     */
+    public long contarEventosPorAforo(int aforoMinimo) {
+        return mapaEventos.values().stream()
+                .filter(e -> e.getRecinto().getAforoMaximo() >= aforoMinimo)
+                .count();
+    }
+
+    /**
+     * Cierre de eventos
+     * @param sc
+     */
+    public void procesarCierreEventos(Scanner sc) {
+        for (Evento e : mapaEventos.values()) {
+            if (e.getEstado() == EstadoEvento.ACTIVO) {
+                System.out.println("Cerrando: " + e.getNombre());
+
+                if (e instanceof Partido p) {
+                    System.out.print("Introduce resultado (ej. 2-1): ");
+                    p.setResultadoMarcador(sc.nextLine());
+                } else if (e instanceof Concierto c) {
+                    System.out.print("Introduce lista de canciones: ");
+                }
+                e.finalizarEvento();
+            }
+        }
+    }
+
+    /**
+     * Genera informe financiero
+     */
+    public void generarInformeFinanciero() {
+        Collection<Evento> eventos = mapaEventos.values();
+        for (Evento e : mapaEventos.values()) {
+            System.out.println("ID: " + e.getId());
+            System.out.println("Evento: " + e.getNombre());
+            System.out.printf(" - Coste Operativo: %.2f€%n", e.calcularCosteOperativo());
+            System.out.printf(" - Precio Sugerido: %.2f€%n", e.calcularPrecioVentaRecomendado());
+            System.out.println("-----------------------------------");
+        }
+
+    }
+}

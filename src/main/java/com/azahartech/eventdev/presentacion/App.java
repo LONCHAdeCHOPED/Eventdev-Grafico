@@ -2,6 +2,7 @@ package com.azahartech.eventdev.presentacion;
 
 import com.azahartech.eventdev.modelo.*;
 import com.azahartech.eventdev.servicio.*;
+import com.azahartech.eventdev.util.UtilidadValidacion;
 
 import java.time.LocalDate;
 import java.util.Scanner;
@@ -62,11 +63,28 @@ public class App {
             System.out.print("Introduce el nombre:");
             nombre = SCANNER.nextLine();
 
-            System.out.print("Introduce el email:");
-            email = SCANNER.nextLine();
+            do {
+                continuidad = true;
+                System.out.print("Introduce el email:");
+                email = SCANNER.nextLine();
 
-            System.out.print("Introduce el telefono:");
-            telefono = SCANNER.nextLine();
+                if (!UtilidadValidacion.esEmailValido(email)) {
+                    System.out.println("Error: El email es incorrecto.");
+                    continuidad = false;
+                }
+            } while (!continuidad);
+
+
+            do {
+                continuidad = true;
+                System.out.print("Introduce el telefono:");
+                telefono = SCANNER.nextLine();
+
+                if (!UtilidadValidacion.esTelefonoValido(telefono)) {
+                    System.out.println("Error: El email es incorrecto.");
+                    continuidad = false;
+                }
+            } while (!continuidad);
 
             System.out.print("Eres Vip (Si/No defecto:No):");
             esVip = SCANNER.nextLine().equalsIgnoreCase("si");
@@ -260,7 +278,7 @@ public class App {
             System.out.println("Se ha creado el evento");
             SERVICIO_EVENTO.registrarEvento(evento);
 
-            System.out.print("Quieres crear otro evento:");
+            System.out.print("Quieres crear otro evento (Si/No defecto:no):");
             otroEvento = SCANNER.nextLine().equalsIgnoreCase("si");
         } while (otroEvento);
     }

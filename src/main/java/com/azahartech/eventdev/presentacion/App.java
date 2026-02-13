@@ -154,6 +154,7 @@ public class App {
         }while (!continuidad);
 
         do {
+            continuidad = true;
             try {
                 opcion = -1;
                 System.out.println("Dime el tipo de evento que es: ");
@@ -167,7 +168,7 @@ public class App {
                 opcion = SCANNER.nextInt();
                 SCANNER.nextLine();
 
-                if (opcion < 1 && opcion > 4) {
+                if (opcion < 1 || opcion > 4) {
                     System.out.println("Error: La opcion es invalida");
                     continuidad = false;
                 }

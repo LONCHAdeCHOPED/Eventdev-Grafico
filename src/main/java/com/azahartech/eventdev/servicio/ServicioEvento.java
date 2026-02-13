@@ -17,7 +17,7 @@ public class ServicioEvento {
      * Añadir un evento
      * @param nuevoEvento
      */
-    public void agregarEvento(Evento nuevoEvento) {
+    public void registrarEvento(Evento nuevoEvento) {
         repo.guardar(nuevoEvento);
         mapaEventos.put(nuevoEvento.getId(), nuevoEvento);
     }
@@ -109,6 +109,14 @@ public class ServicioEvento {
                 e.finalizarEvento();
             }
         }
+    }
+
+    /**
+     * Lista todos los eventos guardado en la Lista
+     * @return
+     */
+    public List<Evento> listarTodosLosEventos(){
+        return repo.listar();
     }
 
     /**

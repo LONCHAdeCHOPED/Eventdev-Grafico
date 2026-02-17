@@ -257,7 +257,7 @@ public class App {
                         }
                     } while (!continuidad);
 
-                    System.out.print("Introduce las conciones que han tocado la banda principal:");
+                    System.out.print("Introduce las canciones que han tocado la banda principal:");
                     listaCanciones = SCANNER.nextLine();
 
                     evento = new Concierto(nombre, fecha, recinto, precio, tipo, bandaPrincipal, costeMontaje, listaCanciones);

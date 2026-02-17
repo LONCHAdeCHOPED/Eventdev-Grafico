@@ -1,5 +1,6 @@
 package com.azahartech.eventdev.modelo;
 
+import com.azahartech.eventdev.pagos.ProcesadorPago;
 import com.azahartech.eventdev.util.Exportable;
 import com.azahartech.eventdev.util.UtilidadValidacion;
 
@@ -20,6 +21,7 @@ public class Usuario implements Exportable {
     private String email;
     private String telefono;
     private boolean esVip;
+    private ProcesadorPago tipoPago;
 
     /**
      * Crea una nuevo objeto Usuario con los parámetros especificados.
@@ -110,6 +112,13 @@ public class Usuario implements Exportable {
      * Convierte los datos del usuario a formato XML.
      * @return una representación en XML del usuario
      */
+    public ProcesadorPago getTipoPago() {
+        return tipoPago;
+    }
+
+    public void setTipoPago(ProcesadorPago tipoPago) {
+        this.tipoPago = tipoPago;
+    }
     @Override
     public String aXML() {
         return "\t<usuario>\n" +

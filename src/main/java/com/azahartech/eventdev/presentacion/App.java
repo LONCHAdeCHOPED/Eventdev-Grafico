@@ -324,7 +324,7 @@ public class App {
 
         SERVICIO_EVENTO.eliminarEventosPasados();
 
-        System.out.printf("> Eventos tras la limpiar: %d\n", SERVICIO_EVENTO.listarTodosLosEventos().size());
+        System.out.printf("> Eventos tras la limpieza: %d\n", SERVICIO_EVENTO.listarTodosLosEventos().size());
     }
 
     // [FASE 4: PASARELA DE PAGOS]

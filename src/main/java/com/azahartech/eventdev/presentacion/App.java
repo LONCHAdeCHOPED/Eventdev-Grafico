@@ -329,11 +329,13 @@ public class App {
         ProcesadorPago pagoPaypal = new PagoPaypal(usuario.getEmail());
         ProcesadorPago pagoBizum = new PagoBizum(usuario.getTelefono(), 1234);
 
+        usuario.setTipoPago(pagoPaypal);
         System.out.println("--- Intento de Pago 1: PayPal ---");
+        usuario.getTipoPago().procesarPago(45);
 
-
+        usuario.setTipoPago(pagoBizum);
         System.out.println("--- Intento de Pago 2: Bizum ---");
-
+        usuario.getTipoPago().procesarPago(45);
 
     }
 

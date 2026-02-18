@@ -8,7 +8,7 @@ public class VistaLogin extends JFrame {
 
     public VistaLogin(){
         this.setTitle("Acceso a EventDEV");
-        this.setSize(400, 300);
+        this.setSize(400, 200);
 
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setLocationRelativeTo(null);

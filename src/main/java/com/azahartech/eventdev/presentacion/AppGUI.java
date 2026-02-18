@@ -1,5 +1,6 @@
 package com.azahartech.eventdev.presentacion;
 
+import com.azahartech.eventdev.vista.VistaDashboard;
 import com.azahartech.eventdev.vista.VistaLogin;
 import com.azahartech.eventdev.vista.VistaRegistro;
 
@@ -15,6 +16,11 @@ public class AppGUI {
         SwingUtilities.invokeLater(() -> {
             new VistaRegistro().setVisible(true);
         });
+
+        SwingUtilities.invokeLater(() -> {
+            new VistaDashboard().setVisible(true);
+        });
+
 
     }
 }

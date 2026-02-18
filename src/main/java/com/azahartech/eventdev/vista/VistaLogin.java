@@ -14,6 +14,7 @@ public class VistaLogin extends JFrame {
         this.setLocationRelativeTo(null);
 
         lienzo.setLayout(new BorderLayout(10, 10));
+        ((JPanel)this.getContentPane()).setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
 
         initUI();
     }

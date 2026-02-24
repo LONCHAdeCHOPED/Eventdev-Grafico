@@ -4,12 +4,14 @@ import javax.swing.*;
 import java.awt.*;
 
 public class VistaDashboard extends JFrame {
-    private Container lienzo = this.getContentPane();
+    private JPanel lienzo = (JPanel) this.getContentPane();
 
     public VistaDashboard(){
+        this.setTitle("Eventos");
         this.setSize(800, 600);
-        ((JPanel)this.getContentPane()).setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
         lienzo.setLayout(new BorderLayout(10,10));
+        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        this.setLocationRelativeTo(null);
         initUI();
 
     }
@@ -39,12 +41,37 @@ public class VistaDashboard extends JFrame {
         JLabel lblUsuario = new JLabel("Usuario invitado");
         pnlEstado.add(lblUsuario);
         pnlEstado.setLayout(new FlowLayout(FlowLayout.LEFT));
-        lienzo.add(pnlEstado, BorderLayout.SOUTH);
+        pnlPrincipal.add(pnlEstado, BorderLayout.SOUTH);
 
         // Zona central CENTER
         JPanel pnlCentral = new JPanel();
         pnlCentral.setBackground(Color.white);
         lienzo.add(pnlCentral, BorderLayout.CENTER);
+        JPanel listaPanel = new JPanel();
+        listaPanel.setBorder(BorderFactory.createCompoundBorder(listaPanel.getBorder(), BorderFactory.createEmptyBorder(10, 10, 10, 10)));
+        GridLayout gridLayout = new GridLayout(0,1);
+        gridLayout.setVgap(10);
+        listaPanel.setLayout(gridLayout);
+        listaPanel.setBackground(Color.white);
+
+
+        for (int i = 0; i < 15 ; i++) {
+            TarjetaEvento tarjetaEvento = new TarjetaEvento("Concierto A", "Fecha: 29/12/26", "12");
+            tarjetaEvento.setBorder(BorderFactory.createCompoundBorder(tarjetaEvento.getBorder(), BorderFactory.createEmptyBorder(15,15,15,15)));
+            listaPanel.add(tarjetaEvento);
+        }
+        JScrollPane scroll = new JScrollPane(listaPanel);
+        pnlPrincipal.add(scroll, BorderLayout.CENTER);
+        scroll.getVerticalScrollBar().setUnitIncrement(16);
+        scroll.setBorder(BorderFactory.createCompoundBorder(scroll.getBorder(), BorderFactory.createEmptyBorder(5,5,5,5)));
+        lienzo.add(pnlPrincipal);
+
+
+
+
+
+
+
 
 
     }

@@ -7,7 +7,7 @@ public class VistaRegistro extends JFrame {
     private Container lienzo = this.getContentPane();
 
     public VistaRegistro() {
-        this.setTitle("Formulario De Registro");
+        this.setTitle("Nuevo Usuario");
         this.setSize(400, 300);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setLocationRelativeTo(null);
@@ -28,7 +28,7 @@ public class VistaRegistro extends JFrame {
         JTextField txtEmail = new JTextField();
         JLabel lblPasswd = new JLabel("Contraseña: ");
         JPasswordField txtPasswd = new JPasswordField();
-        JLabel lblRepitPasswd = new JLabel("Introduzca de nuevo la contraseña: ");
+        JLabel lblRepitPasswd = new JLabel("Repetir contraseña: ");
         JPasswordField txtRepitPasswd = new JPasswordField();
         JLabel lblEdad = new JLabel("Edad: ");
         JTextField txtEdad = new JTextField();

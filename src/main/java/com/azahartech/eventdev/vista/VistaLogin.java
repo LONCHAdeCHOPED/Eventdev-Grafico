@@ -6,6 +6,13 @@ import java.awt.*;
 public class VistaLogin extends JFrame {
     private Container lienzo = this.getContentPane();
 
+    private JTextField emailField;
+    private JPasswordField contrasenyaField;
+    private JButton loginButton;
+    private JButton registroButton;
+    private JButton salirButton;
+
+
     public VistaLogin(){
         this.setTitle("Acceso a EventDEV");
         this.setSize(400, 200);
@@ -21,19 +28,18 @@ public class VistaLogin extends JFrame {
 
 
     private void initUI(){
-        JPanel pnlFormulario = new JPanel();
-        pnlFormulario.setLayout(new GridLayout(2,2,10,10));
+        JPanel formularioPanel = new JPanel();
+        formularioPanel.setLayout(new GridLayout(2,2,10,10));
         JLabel lblEmail = new JLabel("Email: ");
-        JTextField txtEmail = new JTextField();
+        this.emailField = new JTextField();
         JLabel lblPassword = new JLabel("Contraseña");
-        JPasswordField txtPassword = new JPasswordField();
+        this.contrasenyaField = new JPasswordField();
+        formularioPanel.add(lblEmail);
+        formularioPanel.add(emailField);
+        formularioPanel.add(lblPassword);
+        formularioPanel.add(contrasenyaField);
 
-        pnlFormulario.add(lblEmail);
-        pnlFormulario.add(txtEmail);
-        pnlFormulario.add(lblPassword);
-        pnlFormulario.add(txtPassword);
-
-        lienzo.add(pnlFormulario, BorderLayout.CENTER);
+        lienzo.add(formularioPanel, BorderLayout.CENTER);
 
         // JLabel Titulo Bienvenida
         JLabel lblBienvenida = new JLabel("Bienvenido a EventDEV");
@@ -44,11 +50,57 @@ public class VistaLogin extends JFrame {
         // JPanel Botonera Sur
         JPanel pnlBotones = new JPanel();
         pnlBotones.setLayout(new FlowLayout(FlowLayout.CENTER));
-        JButton btnLogin = new JButton("Entrar");
-        JButton btnRegistro = new JButton("Registrarse");
-        pnlBotones.add(btnLogin);
-        pnlBotones.add(btnRegistro);
+        this.loginButton = new JButton("Entrar");
+        this.registroButton = new JButton("Registrarse");
+        this.salirButton = new JButton("Salir");
+        pnlBotones.add(loginButton);
+        pnlBotones.add(registroButton);
+        pnlBotones.add(salirButton);
         lienzo.add(pnlBotones, BorderLayout.SOUTH);
+        initListeners();
+    }
 
+    private void initListeners(){
+        salirButton.addActionListener(e -> {
+            // Preguntar antes de salir
+            int confirmar = JOptionPane.showConfirmDialog(this,
+                    "¿Estás seguro de que quieres cerrar la aplicación?",
+                    "Confirmar salida",
+                    JOptionPane.YES_NO_OPTION);
+
+            if (confirmar == JOptionPane.YES_OPTION) {
+                System.exit(0); // Cierra la JVM
+            }
+        });
+
+        loginButton.addActionListener(e -> intentarLogin());
+        contrasenyaField.addActionListener(e -> intentarLogin());
+    }
+
+    private void intentarLogin(){
+        // 1. Capturar los datos
+        String email = emailField.getText();
+        // OJO: getPassword devuelve char[], hay que convertirlo a String
+        String contrasenya = new String(contrasenyaField.getPassword());
+        // 2. Validar (simulación)
+        if (email.equals("admin@eventdev.com") && contrasenya.equals("1234")) {
+            // Caso de éxito
+            JOptionPane.showMessageDialog(this,
+                    "¡Bienvenido al sistema, Admin!",
+                    "Acceso concedido",
+                    JOptionPane.INFORMATION_MESSAGE);
+
+            // Aquí en el futuro abriremos el Dashboard
+        } else {
+            // Caso de error
+            JOptionPane.showMessageDialog(this,
+                    "Usuario o contraseña incorrectos.",
+                    "Acceso denegado",
+                    JOptionPane.ERROR_MESSAGE);
+
+            // Buena práctica: limpiar la contraseña y poner el foco
+            contrasenyaField.setText("");
+            contrasenyaField.requestFocus();
+        }
     }
 }

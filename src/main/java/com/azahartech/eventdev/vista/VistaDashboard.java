@@ -5,12 +5,13 @@ import java.awt.*;
 
 public class VistaDashboard extends JFrame {
     private JPanel lienzo = (JPanel) this.getContentPane();
-
-    public VistaDashboard(){
+    private String nombreUsuario;
+    public VistaDashboard(String nombreUsuario){
         this.setTitle("Eventos");
         this.setSize(800, 600);
         lienzo.setLayout(new BorderLayout(10,10));
         this.setLocationRelativeTo(null);
+        this.nombreUsuario = nombreUsuario;
         initUI();
 
     }
@@ -37,7 +38,8 @@ public class VistaDashboard extends JFrame {
 
         // Barra de Estado SOUTH
         JPanel pnlEstado = new JPanel();
-        JLabel lblUsuario = new JLabel("Usuario invitado");
+        JLabel lblUsuario = new JLabel();
+        lblUsuario.setText("Usuario: " + nombreUsuario);
         pnlEstado.add(lblUsuario);
         pnlEstado.setLayout(new FlowLayout(FlowLayout.LEFT));
         pnlPrincipal.add(pnlEstado, BorderLayout.SOUTH);
@@ -65,6 +67,17 @@ public class VistaDashboard extends JFrame {
         scroll.setBorder(BorderFactory.createCompoundBorder(scroll.getBorder(), BorderFactory.createEmptyBorder(5,5,5,5)));
         lienzo.add(pnlPrincipal);
 
+        btnSalir.addActionListener(e -> {
+            int confirmar = JOptionPane.showConfirmDialog(this,
+                    "¿Seguro que quieres cerrar sesion?",
+                    "Cerrar sesion",
+                    JOptionPane.YES_NO_OPTION);
+
+            if (confirmar == JOptionPane.YES_OPTION) {
+                this.dispose();
+                new VistaLogin().setVisible(true);
+            }
+        });
 
 
 

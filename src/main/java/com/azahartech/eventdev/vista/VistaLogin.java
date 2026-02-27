@@ -85,10 +85,13 @@ public class VistaLogin extends JFrame {
         // 2. Validar (simulación)
         if (email.equals("admin@eventdev.com") && contrasenya.equals("1234")) {
             // Caso de éxito
-            JOptionPane.showMessageDialog(this,
-                    "¡Bienvenido al sistema, Admin!",
-                    "Acceso concedido",
-                    JOptionPane.INFORMATION_MESSAGE);
+//            JOptionPane.showMessageDialog(this,
+//                    "¡Bienvenido al sistema, Admin!",
+//                    "Acceso concedido",
+////                    JOptionPane.INFORMATION_MESSAGE);
+                    this.dispose();
+                    VistaDashboard dashboard = new VistaDashboard(email);
+                    dashboard.setVisible(true);
 
             // Aquí en el futuro abriremos el Dashboard
         } else {

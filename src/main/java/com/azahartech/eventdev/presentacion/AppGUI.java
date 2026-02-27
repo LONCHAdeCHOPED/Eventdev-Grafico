@@ -17,10 +17,9 @@ public class AppGUI {
             new VistaRegistro().setVisible(true);
         });
 
-        SwingUtilities.invokeLater(() -> {
-            new VistaDashboard().setVisible(true);
-        });
-
+//        SwingUtilities.invokeLater(() -> {
+//            new VistaDashboard().setVisible(true);
+//        });
 
     }
 }

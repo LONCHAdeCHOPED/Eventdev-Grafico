@@ -2,6 +2,8 @@ package com.azahartech.eventdev.vista;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 
 public class VistaLogin extends JFrame {
     private Container lienzo = this.getContentPane();
@@ -17,7 +19,7 @@ public class VistaLogin extends JFrame {
         this.setTitle("Acceso a EventDEV");
         this.setSize(400, 200);
 
-        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        this.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
         this.setLocationRelativeTo(null);
 
         lienzo.setLayout(new BorderLayout(10, 10));
@@ -58,23 +60,19 @@ public class VistaLogin extends JFrame {
         pnlBotones.add(salirButton);
         lienzo.add(pnlBotones, BorderLayout.SOUTH);
         initListeners();
+        registrarse();
     }
 
     private void initListeners(){
-        salirButton.addActionListener(e -> {
-            // Preguntar antes de salir
-            int confirmar = JOptionPane.showConfirmDialog(this,
-                    "¿Estás seguro de que quieres cerrar la aplicación?",
-                    "Confirmar salida",
-                    JOptionPane.YES_NO_OPTION);
-
-            if (confirmar == JOptionPane.YES_OPTION) {
-                System.exit(0); // Cierra la JVM
-            }
-        });
-
+        salirButton.addActionListener(e -> intentarSalir());
         loginButton.addActionListener(e -> intentarLogin());
         contrasenyaField.addActionListener(e -> intentarLogin());
+        this.addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent e) {
+               intentarSalir();
+            }
+        });
     }
 
     private void intentarLogin(){
@@ -106,4 +104,25 @@ public class VistaLogin extends JFrame {
             contrasenyaField.requestFocus();
         }
     }
+
+    public void registrarse(){
+        registroButton.addActionListener(e -> {
+            this.dispose();
+            VistaRegistro registro = new VistaRegistro();
+            registro.setVisible(true);
+        });
+    }
+
+    public void intentarSalir(){
+        // Preguntar antes de salir
+        int confirmar = JOptionPane.showConfirmDialog(this,
+                "¿Estás seguro de que quieres cerrar la aplicación?",
+                "Confirmar salida",
+                JOptionPane.YES_NO_OPTION);
+
+        if (confirmar == JOptionPane.YES_OPTION) {
+            System.exit(0); // Cierra la JVM
+        }
+    }
+
 }

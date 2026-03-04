@@ -10,6 +10,7 @@ public class VistaDashboard extends JFrame {
         this.setTitle("Eventos");
         this.setSize(800, 600);
         lienzo.setLayout(new BorderLayout(10,10));
+        this.setDefaultCloseOperation(EXIT_ON_CLOSE);
         this.setLocationRelativeTo(null);
         this.nombreUsuario = nombreUsuario;
         initUI();

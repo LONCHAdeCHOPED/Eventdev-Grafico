@@ -12,12 +12,13 @@ public class VistaRegistro extends JFrame {
     private JPasswordField repitPasswdField;
     private JTextField edadField;
     private JButton guardarButton;
+    private JButton cancelarButton;
 
     public VistaRegistro() {
         this.setTitle("Nuevo Usuario");
         this.setSize(400, 300);
         this.setLocationRelativeTo(null);
-
+        this.setDefaultCloseOperation(EXIT_ON_CLOSE);
         lienzo.setLayout(new BorderLayout(10, 10));
         ((JPanel)this.getContentPane()).setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
 
@@ -56,9 +57,9 @@ public class VistaRegistro extends JFrame {
         JPanel pnlBotones = new JPanel();
         pnlBotones.setLayout(new FlowLayout(FlowLayout.CENTER));
         this.guardarButton = new JButton("Guardar");
-        JButton btnCancelar = new JButton("Cancelar");
+        this.cancelarButton = new JButton("Cancelar");
         pnlBotones.add(guardarButton);
-        pnlBotones.add(btnCancelar);
+        pnlBotones.add(cancelarButton);
         lienzo.add(pnlBotones, BorderLayout.SOUTH);
 
 
@@ -75,6 +76,7 @@ public class VistaRegistro extends JFrame {
     private void initListeners(){
         guardarButton.addActionListener(e -> registroUsuario());
         edadField.addActionListener(e -> registroUsuario());
+        cancelarButton.addActionListener(e -> cancelar());
     }
 
     public void registroUsuario(){
@@ -94,5 +96,11 @@ public class VistaRegistro extends JFrame {
             JOptionPane.showMessageDialog(this, "Usuario registrado correctamente",
                     "Usuario registrado", JOptionPane.INFORMATION_MESSAGE );
         }
+    }
+
+    public void cancelar(){
+       this.dispose();
+       VistaLogin login = new VistaLogin();
+       login.setVisible(true);
     }
 }

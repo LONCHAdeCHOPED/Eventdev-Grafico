@@ -81,7 +81,7 @@ public class VistaLogin extends JFrame {
         // OJO: getPassword devuelve char[], hay que convertirlo a String
         String contrasenya = new String(contrasenyaField.getPassword());
         // 2. Validar (simulación)
-        if (email.equals("admin@eventdev.com") && contrasenya.equals("1234")) {
+        if (email.equals("admin") && contrasenya.equals("1234")) {
             // Caso de éxito
 //            JOptionPane.showMessageDialog(this,
 //                    "¡Bienvenido al sistema, Admin!",

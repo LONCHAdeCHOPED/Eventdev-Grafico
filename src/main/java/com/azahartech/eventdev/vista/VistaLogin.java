@@ -1,5 +1,7 @@
 package com.azahartech.eventdev.vista;
 
+import com.azahartech.eventdev.servicio.ServicioEvento;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.WindowAdapter;
@@ -24,7 +26,6 @@ public class VistaLogin extends JFrame {
 
         lienzo.setLayout(new BorderLayout(10, 10));
         ((JPanel)this.getContentPane()).setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
-
         initUI();
     }
 

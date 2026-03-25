@@ -1,5 +1,7 @@
 package com.azahartech.eventdev.vista;
 
+import com.azahartech.eventdev.servicio.ServicioEvento;
+
 import javax.swing.*;
 import java.awt.*;
 
@@ -21,7 +23,6 @@ public class VistaRegistro extends JFrame {
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);
         lienzo.setLayout(new BorderLayout(10, 10));
         ((JPanel)this.getContentPane()).setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
-
         initUI();
     }
 

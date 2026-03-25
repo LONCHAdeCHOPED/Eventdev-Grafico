@@ -1,6 +1,5 @@
 package com.azahartech.eventdev.vista;
 
-import com.azahartech.eventdev.modelo.Concierto;
 import com.azahartech.eventdev.modelo.Evento;
 import com.azahartech.eventdev.modelo.Partido;
 import com.azahartech.eventdev.modelo.Recinto;
@@ -10,19 +9,22 @@ import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.time.LocalDate;
-import java.util.ArrayList;
+import static com.azahartech.eventdev.presentacion.AppGUI.servicioPrincipal;
 
 public class VistaDashboard extends JFrame {
     private JPanel lienzo = (JPanel) this.getContentPane();
     private String nombreUsuario;
     private JButton btnSalir;
     private JMenuBar principalMenuBar;
-    private JMenuItem salirMenuItem;
-    private JMenuItem cerrarSesionMenuItem;
+    private JMenuItem salirItem;
+    private JMenuItem cerrarSesionItem;
     private String[] nombresColumnas;
     private DefaultTableModel eventosTableModel;
     private JButton detalleButton;
     private JTable eventosTable;
+    private JMenuItem nuevoEventoItem;
+    private ServicioEvento servicio;
+
 
     public VistaDashboard(String nombreUsuario){
         this.setTitle("Eventos");
@@ -38,6 +40,7 @@ public class VistaDashboard extends JFrame {
                 return false;
             }
         };
+        this.servicio = servicioPrincipal;
         initUI();
 
     }
@@ -68,9 +71,10 @@ public class VistaDashboard extends JFrame {
         lblUsuario.setText("Usuario: " + nombreUsuario);
         pnlEstado.add(lblUsuario);
         pnlEstado.setLayout(new FlowLayout(FlowLayout.LEFT));
-        pnlPrincipal.add(pnlEstado, BorderLayout.SOUTH);
         detalleButton = new JButton("Ver detalles");
         pnlEstado.add(detalleButton);
+        lienzo.add(pnlEstado, BorderLayout.SOUTH);
+
 
         // Zona central CENTER
         JPanel pnlCentral = new JPanel();
@@ -83,7 +87,6 @@ public class VistaDashboard extends JFrame {
         listaPanel.setLayout(gridLayout);
         listaPanel.setBackground(Color.white);
 
-        ServicioEvento servicio = new ServicioEvento();
         for (int i = 0; i < 5 ; i++) {
             servicio.registrarEvento(new Partido("Partido", LocalDate.now(), new Recinto("Castalia", "C/ Caminas", 126),122, "Caminas", "Caminas2", 22));
 //            TarjetaEvento tarjetaEvento = new TarjetaEvento("Concierto A", "Fecha: 29/12/26", "12");
@@ -91,30 +94,37 @@ public class VistaDashboard extends JFrame {
 //            listaPanel.add(tarjetaEvento);
         }
 
-        for (Evento listarTodosLosEvento : servicio.listarTodosLosEventos()) {
-            Object[] evento1 = {listarTodosLosEvento.getId(), listarTodosLosEvento.getNombre(), listarTodosLosEvento.getFecha(), listarTodosLosEvento.getPrecio()};
-            eventosTableModel.addRow(evento1);
-        }
+        refrescar();
         eventosTable = new JTable(eventosTableModel);
-
-
         JScrollPane scroll = new JScrollPane(eventosTable);
         pnlPrincipal.add(scroll, BorderLayout.CENTER);
         scroll.getVerticalScrollBar().setUnitIncrement(16);
         scroll.setBorder(BorderFactory.createCompoundBorder(scroll.getBorder(), BorderFactory.createEmptyBorder(5,5,5,5)));
         lienzo.add(pnlPrincipal);
 
-
         initMenu();
         initListeners();
 
     }
 
+    private void refrescar(){
+        eventosTableModel.setRowCount(0);
+        for (Evento listarTodosLosEvento : servicio.listarTodosLosEventos()) {
+            Object[] evento1 = {listarTodosLosEvento.getId(), listarTodosLosEvento.getNombre(), listarTodosLosEvento.getFecha(), listarTodosLosEvento.getPrecio()};
+            eventosTableModel.addRow(evento1);
+        }
+    }
+
     private void initListeners(){
         btnSalir.addActionListener(e -> intentarSalir());
-        salirMenuItem.addActionListener(e -> intentarSalir());
-        cerrarSesionMenuItem.addActionListener(e -> intentarSalir());
+        salirItem.addActionListener(e -> intentarSalir());
+        cerrarSesionItem.addActionListener(e -> intentarSalir());
         detalleButton.addActionListener(e -> intentarVerDetalle());
+        nuevoEventoItem.addActionListener(e -> {
+            NuevoEventoDialog dialog = new NuevoEventoDialog(this, servicio);
+            dialog.setVisible(true);
+            refrescar();
+        });
     }
 
     private void intentarSalir(){
@@ -153,12 +163,12 @@ public class VistaDashboard extends JFrame {
         JMenu archivoMenu = new JMenu("Archivo");
         JMenu accionesMenu = new JMenu("Acciones");
 
-        cerrarSesionMenuItem = new JMenuItem("Cerrar sesion");
-        salirMenuItem = new JMenuItem("Salir");
-        archivoMenu.add(cerrarSesionMenuItem);
-        archivoMenu.add(salirMenuItem);
-        JMenuItem nuevoEvento = new JMenuItem("Nuevo evento");
-        accionesMenu.add(nuevoEvento);
+        cerrarSesionItem = new JMenuItem("Cerrar sesion");
+        salirItem = new JMenuItem("Salir");
+        archivoMenu.add(cerrarSesionItem);
+        archivoMenu.add(salirItem);
+        nuevoEventoItem = new JMenuItem("Nuevo evento");
+        accionesMenu.add(nuevoEventoItem);
 
         principalMenuBar.add(archivoMenu);
         principalMenuBar.add(accionesMenu);

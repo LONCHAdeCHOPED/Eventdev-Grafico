@@ -5,7 +5,8 @@ import com.azahartech.eventdev.datos.RepositorioGenerico;
 
 import java.time.LocalDate;
 import java.util.*;
-
+import java.io.*;
+import static com.azahartech.eventdev.presentacion.AppGUI.LogUtil;
 /**
  * Clase ServicioEvento
  */
@@ -132,5 +133,60 @@ public class ServicioEvento {
             System.out.println("-----------------------------------");
         }
 
+    }
+
+    public void importarEventosDesdeCSV(String rutaArchivo){
+        File archivo = new File(rutaArchivo);
+        if (archivo.exists()){
+            try {
+                BufferedReader lector = new BufferedReader(new FileReader(archivo));
+                String linea;
+                lector.readLine();
+                while ((linea = lector.readLine()) != null){
+                    System.out.println(linea);
+                    String[] datos = linea.split(";");
+                    String fechaStr;
+                    String precio;
+                    String aforo;
+                    LocalDate fecha = null;
+                    int aforoStr;
+                    double precioStr;
+
+                    try{
+                        aforo = datos[3];
+                        aforoStr = Integer.parseInt(aforo);
+                    } catch (Exception e){
+                        System.out.print("Error en el aforo: formato inválido" + e.getMessage());
+                        LogUtil.registrar(ErrorNivel.ERROR,"ERROR: Fallo al importar linea del CSV: " + e.getMessage());
+                        aforoStr = 0;
+                    }
+
+                    try {
+                        precio = datos[4];
+                        precioStr = Double.parseDouble(precio);
+                    } catch (Exception e) {
+                        System.out.print("Error en el precio: formato inválido" + e.getMessage());
+                        LogUtil.registrar(ErrorNivel.ERROR,"ERROR: Fallo al importar linea del CSV: " + e.getMessage());
+                        precioStr = 0;
+                    }
+
+                    try {
+                        fechaStr = datos[2];
+                        fecha = LocalDate.parse(fechaStr);
+                    } catch (Exception e) {
+                        System.out.print("Error en la fecha: formato inválido" + e.getMessage());
+                        LogUtil.registrar(ErrorNivel.ERROR, "ERROR: Fallo al importar linea del CSV: " + e.getMessage());
+                        fechaStr = null;
+                    }
+
+                    Evento concierto = new Concierto(datos[0], fecha, new Recinto(datos[0], datos[1], aforoStr), precioStr, null, null, 10, null);
+                    this.repo.listar().add(concierto);
+                    System.out.println("Importado " + datos[0]);
+                    LogUtil.registrar(ErrorNivel.INFO,"Importado : " + datos[0]);
+                }
+            } catch (IOException e){
+                System.err.println("No se ha podido leer el archivo " + e.getMessage());
+            }
+        }
     }
 }

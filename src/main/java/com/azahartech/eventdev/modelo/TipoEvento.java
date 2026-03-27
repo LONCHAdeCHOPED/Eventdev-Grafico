@@ -1,5 +1,7 @@
 package com.azahartech.eventdev.modelo;
 
+import java.io.Serializable;
+
 /**
  * Enumerado para especificar el TipoEvento
  */

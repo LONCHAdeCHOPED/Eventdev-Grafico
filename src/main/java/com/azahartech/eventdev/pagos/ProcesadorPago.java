@@ -1,5 +1,7 @@
 package com.azahartech.eventdev.pagos;
 
+import java.io.Serializable;
+
 /**
  * Representa el procesador de pagos de la Aplicación
  * Esta interfaz define la lógica de cada uno de los tipos

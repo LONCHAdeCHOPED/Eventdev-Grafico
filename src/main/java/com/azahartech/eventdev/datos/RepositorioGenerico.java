@@ -21,6 +21,9 @@ public class RepositorioGenerico <T>{
     public void guardar(T objeto) {
         this.elementos.add(objeto);
     }
+    public void cargar(List<T> objeto) {
+        this.elementos = objeto;
+    }
 
     /**
      * Devuelve la lista completa de elementos almacenados.

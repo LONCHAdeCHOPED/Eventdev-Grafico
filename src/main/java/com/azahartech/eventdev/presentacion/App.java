@@ -65,8 +65,13 @@ public class App {
 //                           """);
 //
 //        SCANNER.close();
-        generarDemo();
-        SERVICIO_EVENTO.guardar();
+//        generarDemo();
+//        SERVICIO_EVENTO.guardar();
+//        SERVICIO_USUARIO.registrarUsuario(new Usuario("Usuario1", "Usuario1@usuario1.com", "612345678", false));
+//        SERVICIO_USUARIO.guardar();
+        for (Usuario usuario : SERVICIO_USUARIO.listarTodosLosUsuario()) {
+            System.out.println(usuario.getIntentosLoginFallidos());
+        }
     }
     // [FASE 1: REGISTRO DE USUARIOS]
     private static void registrarUsuarios(){

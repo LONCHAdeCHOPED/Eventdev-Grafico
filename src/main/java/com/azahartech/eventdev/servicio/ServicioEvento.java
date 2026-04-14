@@ -17,6 +17,11 @@ public class ServicioEvento {
     private static final String FICHERO_DATOS = "datos/eventos.dat";
 
 
+    public ServicioEvento() {
+        GestorPersistencia gestor = new GestorPersistencia();
+        this.repo.cargar(gestor.cargarDatos(FICHERO_DATOS));
+    }
+
     public void guardar(){
         GestorPersistencia gestorPersistencia = new GestorPersistencia();
         gestorPersistencia.guardarDatos(repo.listar(), FICHERO_DATOS);

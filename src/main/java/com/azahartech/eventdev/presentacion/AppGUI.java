@@ -22,7 +22,7 @@ public class AppGUI {
         }
 
         LogUtil.registrar(ErrorNivel.INFO,"Inicio de la aplicación");
-        /*
+
         SwingUtilities.invokeLater(() -> {
             try {
                 UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
@@ -31,7 +31,7 @@ public class AppGUI {
             }
             new VistaLogin().setVisible(true);
         });
-        */
+
 //        SwingUtilities.invokeLater(() -> {
 //            new VistaRegistro().setVisible(true);
 //        });

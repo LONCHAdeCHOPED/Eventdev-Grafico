@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<catalago_eventos>
+    <evento xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="concierto" id="EVT-2026-COEV5">
+        <nombre>Concierto Evento 5</nombre>
+        <fecha>2026-12-31</fecha>
+        <recinto>
+            <nombre>recinto5</nombre>
+            <direccion>direccion5</direccion>
+            <aforoMaximo>140</aforoMaximo>
+            <asientosVip>false</asientosVip>
+            <asientosVip>false</asientosVip>
+            <asientosVip>false</asientosVip>
+            <asientosVip>false</asientosVip>
+            <asientosVip>false</asientosVip>
+            <asientosVip>false</asientosVip>
+            <asientosVip>false</asientosVip>
+            <asientosVip>false</asientosVip>
+            <asientosVip>false</asientosVip>
+            <asientosVip>false</asientosVip>
+        </recinto>
+        <coste>140.0</coste>
+        <estado>PLANIFICADO</estado>
+        <tipo>CONCIERTO</tipo>
+        <bandaPrincipal>Banda3</bandaPrincipal>
+        <costeMontaje>20000.0</costeMontaje>
+        <listaCanciones>Cancion2, Cancion23, Cancion13</listaCanciones>
+    </evento>
+    <evento xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="partido" id="EVT-2026-PAEV8">
+        <nombre>Partido Evento 8</nombre>
+        <fecha>2027-12-31</fecha>
+        <recinto>
+            <nombre>recinto8</nombre>
+            <direccion>direccion8</direccion>
+            <aforoMaximo>170</aforoMaximo>
+            <asientosVip>false</asientosVip>
+            <asientosVip>false</asientosVip>
+            <asientosVip>false</asientosVip>
+            <asientosVip>false</asientosVip>
+            <asientosVip>false</asientosVip>
+            <asientosVip>false</asientosVip>
+            <asientosVip>false</asientosVip>
+            <asientosVip>false</asientosVip>
+            <asientosVip>false</asientosVip>
+            <asientosVip>false</asientosVip>
+        </recinto>
+        <coste>170.0</coste>
+        <estado>PLANIFICADO</estado>
+        <tipo>DEPORTE</tipo>
+        <equipoLocal>equipoLocal4</equipoLocal>
+        <equipoVisitante>EquipoVisitante4</equipoVisitante>
+        <costeSeguridad>27000.0</costeSeguridad>
+        <costeArbitraje>0.0</costeArbitraje>
+    </evento>
+</catalago_eventos>

@@ -1,18 +1,28 @@
 package com.azahartech.eventdev.modelo;
 
+import jakarta.xml.bind.annotation.XmlAccessType;
+import jakarta.xml.bind.annotation.XmlAccessorType;
+import jakarta.xml.bind.annotation.XmlRootElement;
+import jakarta.xml.bind.annotation.XmlTransient;
+
 import java.time.LocalDate;
 
 /**
  * Clase Partido
  */
+@XmlRootElement(name = "Partido")
+@XmlAccessorType(XmlAccessType.FIELD)
 public class Partido extends Evento {
+
+    @XmlTransient
+    private static final long serialVersionUID = 1L;
     private String equipoLocal;
     private String equipoVisitante;
     private double costeSeguridad;
     private double costeArbitraje;
     private String resultadoMarcador;
 
-
+    public Partido(){}
     public Partido(String nombre, LocalDate fecha, Recinto recinto, double precio, String equipoLocal, String equipoVisitante, double costeSeguridad) {
         super(nombre, fecha, recinto, precio,TipoEvento.DEPORTE);
         this.equipoLocal = equipoLocal;

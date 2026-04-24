@@ -6,7 +6,11 @@ import com.azahartech.eventdev.pagos.PagoPaypal;
 import com.azahartech.eventdev.pagos.ProcesadorPago;
 import com.azahartech.eventdev.servicio.*;
 import com.azahartech.eventdev.util.UtilidadValidacion;
+import jakarta.xml.bind.JAXBContext;
+import jakarta.xml.bind.JAXBException;
+import jakarta.xml.bind.Marshaller;
 
+import java.io.File;
 import java.time.LocalDate;
 import java.util.Scanner;
 
@@ -65,13 +69,16 @@ public class App {
 //                           """);
 //
 //        SCANNER.close();
-//        generarDemo();
+        generarDemo();
+        SERVICIO_EVENTO.exportarCatalogoAXML("datos/agenda_export.xml");
+        System.out.println("----------------");
+//        SERVICIO_EVENTO.importarCatalogoDesdeXML("datos/agenda_export.xml");
 //        SERVICIO_EVENTO.guardar();
 //        SERVICIO_USUARIO.registrarUsuario(new Usuario("Usuario1", "Usuario1@usuario1.com", "612345678", false));
 //        SERVICIO_USUARIO.guardar();
-        for (Usuario usuario : SERVICIO_USUARIO.listarTodosLosUsuario()) {
-            System.out.println(usuario.getIntentosLoginFallidos());
-        }
+//        for (Usuario usuario : SERVICIO_USUARIO.listarTodosLosUsuario()) {
+//            System.out.println(usuario.getIntentosLoginFallidos());
+//        }
     }
     // [FASE 1: REGISTRO DE USUARIOS]
     private static void registrarUsuarios(){
@@ -395,14 +402,34 @@ public class App {
     }
 
     private static void generarDemo(){
-        SERVICIO_EVENTO.registrarEvento(new Concierto("Concierto Evento 1", LocalDate.of(2021, 12, 31), new Recinto("recinto1", "direccion1", 100), 100, TipoEvento.CONCIERTO, "Banda1", 2000,"Cancion1, Cancion2, Cancion23"));
-        SERVICIO_EVENTO.registrarEvento(new Concierto("Concierto Evento 3", LocalDate.of(2033, 12, 31), new Recinto("recinto3", "direccion3", 120), 120, TipoEvento.CONCIERTO, "Banda2", 4000,"Cancion5, Cancion6, Cancion31"));
-        SERVICIO_EVENTO.registrarEvento(new Concierto("Concierto Evento 5", LocalDate.of(2026, 12, 31), new Recinto("recinto5", "direccion5", 140), 140, TipoEvento.CONCIERTO, "Banda3", 20000,"Cancion2, Cancion23, Cancion13"));
-        SERVICIO_EVENTO.registrarEvento(new Concierto("Concierto Evento 7", LocalDate.of(2027, 12, 31), new Recinto("recinto7", "direccion7", 160), 160, TipoEvento.CONCIERTO, "Banda4", 7000,"Cancion6, Cancion23, Cancion35"));
 
-        SERVICIO_EVENTO.registrarEvento(new Partido("Partido Evento 2", LocalDate.of(2022, 12, 31), new Recinto("recinto2", "direccion2", 110), 110, "equipoLocal1", "EquipoVisitante1", 7000));
-        SERVICIO_EVENTO.registrarEvento(new Partido("Partido Evento 4", LocalDate.of(2031, 12, 31), new Recinto("recinto4", "direccion4", 130), 130, "equipoLocal2", "EquipoVisitante2", 70000));
-        SERVICIO_EVENTO.registrarEvento(new Partido("Partido Evento 6", LocalDate.of(2026, 12, 31), new Recinto("recinto6", "direccion6", 150), 150, "equipoLocal3", "EquipoVisitante3", 17000));
+        try {
+            // 1. Objeto a exportar
+            Evento miEvento = new Concierto("Concierto Evento 1", LocalDate.of(2021, 12, 31), new Recinto("recinto1", "direccion1", 100), 100, TipoEvento.CONCIERTO, "Banda1", 2000,"Cancion1, Cancion2, Cancion23");
+            // 2. Crear el contexto (el traductor para la clase Evento)
+            JAXBContext contexto = JAXBContext.newInstance(Evento.class);
+            // 3. Crear el Marshaller
+            Marshaller marshaller = contexto.createMarshaller();
+            // 4. Configuración: "Pretty Print" (para que el XML tenga sangría y saltos de línea)
+            marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
+            // 5. Ejecutar la conversión hacia un fichero
+            marshaller.marshal(miEvento, new File("evento_exportado.xml"));
+
+            // También podemos volcarlo a la consola para probar
+            marshaller.marshal(miEvento, System.out);
+        } catch (JAXBException e) {
+            e.printStackTrace();
+        }
+
+        SERVICIO_EVENTO.registrarEvento(new Concierto("Concierto Evento 5", LocalDate.of(2026, 12, 31), new Recinto("recinto5", "direccion5", 140), 140, TipoEvento.CONCIERTO, "Banda3", 20000,"Cancion2, Cancion23, Cancion13"));
+//        SERVICIO_EVENTO.registrarEvento(new Concierto("Concierto Evento 7", LocalDate.of(2027, 12, 31), new Recinto("recinto7", "direccion7", 160), 160, TipoEvento.CONCIERTO, "Banda4", 7000,"Cancion6, Cancion23, Cancion35"));
+//
+//        SERVICIO_EVENTO.registrarEvento(new Concierto("Concierto Evento 1", LocalDate.of(2021, 12, 31), new Recinto("recinto1", "direccion1", 100), 100, TipoEvento.CONCIERTO, "Banda1", 2000,"Cancion1, Cancion2, Cancion23"));
+//        SERVICIO_EVENTO.registrarEvento(new Concierto("Concierto Evento 3", LocalDate.of(2033, 12, 31), new Recinto("recinto3", "direccion3", 120), 120, TipoEvento.CONCIERTO, "Banda2", 4000,"Cancion5, Cancion6, Cancion31"));
+//
+//        SERVICIO_EVENTO.registrarEvento(new Partido("Partido Evento 2", LocalDate.of(2022, 12, 31), new Recinto("recinto2", "direccion2", 110), 110, "equipoLocal1", "EquipoVisitante1", 7000));
+//        SERVICIO_EVENTO.registrarEvento(new Partido("Partido Evento 4", LocalDate.of(2031, 12, 31), new Recinto("recinto4", "direccion4", 130), 130, "equipoLocal2", "EquipoVisitante2", 70000));
+//        SERVICIO_EVENTO.registrarEvento(new Partido("Partido Evento 6", LocalDate.of(2026, 12, 31), new Recinto("recinto6", "direccion6", 150), 150, "equipoLocal3", "EquipoVisitante3", 17000));
         SERVICIO_EVENTO.registrarEvento(new Partido("Partido Evento 8", LocalDate.of(2027, 12, 31), new Recinto("recinto8", "direccion8", 170), 170, "equipoLocal4", "EquipoVisitante4", 27000));
 
         SERVICIO_USUARIO.registrarUsuario(new Usuario("Usuario1", "Usuario1@usuario1.com", "612345678", false));

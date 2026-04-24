@@ -1,7 +1,11 @@
 package com.azahartech.eventdev.modelo;
 
+import com.azahartech.eventdev.datos.LocalDateAdapter;
 import com.azahartech.eventdev.util.Exportable;
 import com.azahartech.eventdev.util.UtilidadValidacion;
+import jakarta.xml.bind.*;
+import jakarta.xml.bind.annotation.*;
+import jakarta.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
 import java.io.Serializable;
 import java.time.LocalDate;
@@ -15,13 +19,20 @@ import java.time.LocalDate;
  * proporciona métodos para calcular precios de venta con margen estándar.
  */
 
+@XmlRootElement(name = "Evento")
+@XmlAccessorType(XmlAccessType.FIELD)
+@XmlSeeAlso({Concierto.class, Partido.class})
 public abstract class Evento implements Exportable, Serializable {
 
+    @XmlTransient
     private static final long serialVersionUID = 1L;
     private String nombre;
+    @XmlJavaTypeAdapter(LocalDateAdapter.class)
     private LocalDate fecha;
     private Recinto recinto;
+    @XmlElement(name = "coste")
     private double precio;
+    @XmlAttribute
     private String id;
     private EstadoEvento estado;
     private TipoEvento tipo;
@@ -32,6 +43,9 @@ public abstract class Evento implements Exportable, Serializable {
      * Inicializa los atributos básicos comunes a todos los tipos de eventos.
      * El estado se establece por defecto como "PLANIFICADO".
      */
+
+    public Evento(){}
+
     public Evento(String nombre, LocalDate fecha, Recinto recinto, double precio, TipoEvento nuevoTipo) {
         this.nombre = nombre;
         this.fecha = fecha;

@@ -1,6 +1,10 @@
 package com.azahartech.eventdev.modelo;
 
 import com.azahartech.eventdev.util.Exportable;
+import jakarta.xml.bind.annotation.XmlAccessType;
+import jakarta.xml.bind.annotation.XmlAccessorType;
+import jakarta.xml.bind.annotation.XmlRootElement;
+import jakarta.xml.bind.annotation.XmlTransient;
 
 import java.io.Serializable;
 import java.util.Arrays;
@@ -11,8 +15,11 @@ import java.util.Arrays;
  *
  *
  */
+@XmlRootElement(name = "Recinto")
+@XmlAccessorType(XmlAccessType.FIELD)
 public class Recinto implements Exportable, Serializable {
 
+    @XmlTransient
     private static final long serialVersionUID = 1L;
     private String nombre;
     private String direccion;
@@ -20,6 +27,7 @@ public class Recinto implements Exportable, Serializable {
     private boolean[] asientosVip;
 
 
+    public Recinto(){}
     public Recinto(String nuevoNombre, String nuevoDireccion, int nuevoAforoMaximo){
         nombre = nuevoNombre;
         direccion = nuevoDireccion;

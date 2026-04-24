@@ -8,6 +8,7 @@ import com.azahartech.eventdev.servicio.ServicioEvento;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
+import java.io.File;
 import java.time.LocalDate;
 import static com.azahartech.eventdev.presentacion.AppGUI.servicioPrincipal;
 
@@ -24,6 +25,8 @@ public class VistaDashboard extends JFrame {
     private JTable eventosTable;
     private JMenuItem nuevoEventoItem;
     private ServicioEvento servicio;
+    private JMenuItem exportarItem;
+    private JMenuItem importarItem;
 
 
     public VistaDashboard(String nombreUsuario){
@@ -125,6 +128,8 @@ public class VistaDashboard extends JFrame {
             dialog.setVisible(true);
             refrescar();
         });
+        importarItem.addActionListener(e -> intentarImportar());
+        exportarItem.addActionListener(e -> intentarExportar());
     }
 
     private void intentarSalir(){
@@ -170,9 +175,37 @@ public class VistaDashboard extends JFrame {
         nuevoEventoItem = new JMenuItem("Nuevo evento");
         accionesMenu.add(nuevoEventoItem);
 
+        importarItem = new JMenuItem("Importar archivo");
+        exportarItem = new JMenuItem("Exportar archivo");
+        archivoMenu.add(importarItem);
+        archivoMenu.add(exportarItem);
+
         principalMenuBar.add(archivoMenu);
         principalMenuBar.add(accionesMenu);
 
         this.setJMenuBar(principalMenuBar);
     }
+
+    private void intentarImportar(){
+        JFileChooser fileChooser = new JFileChooser();
+        fileChooser.showOpenDialog(this);
+        File f = fileChooser.getSelectedFile();
+        servicio.importarCatalogoDesdeXML(f.getAbsolutePath());
+        refrescar();
+
+    }
+
+    private void intentarExportar(){
+        JFileChooser fileChooser = new JFileChooser();
+        fileChooser.showSaveDialog(this);
+        File f = fileChooser.getSelectedFile();
+
+        try {
+            servicioPrincipal.exportarCatalogoAXML(f.getAbsolutePath()+".xml");
+        }
+        catch (Exception e){
+            JOptionPane.showMessageDialog(this, "Error al exportar archivo");
+        }
+    }
+
 }

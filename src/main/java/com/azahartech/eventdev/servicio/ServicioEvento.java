@@ -1,8 +1,13 @@
 package com.azahartech.eventdev.servicio;
 
+import com.azahartech.eventdev.datos.ListaEventosWrapper;
 import com.azahartech.eventdev.modelo.*;
 import com.azahartech.eventdev.datos.RepositorioGenerico;
 import com.azahartech.eventdev.util.GestorPersistencia;
+import jakarta.xml.bind.JAXBContext;
+import jakarta.xml.bind.JAXBException;
+import jakarta.xml.bind.Marshaller;
+import jakarta.xml.bind.Unmarshaller;
 
 import java.time.LocalDate;
 import java.util.*;
@@ -11,6 +16,7 @@ import static com.azahartech.eventdev.presentacion.AppGUI.LogUtil;
 /**
  * Clase ServicioEvento
  */
+
 public class ServicioEvento {
     private RepositorioGenerico<Evento> repo = new RepositorioGenerico<>();
     private HashMap<String, Evento> mapaEventos = new HashMap<>();
@@ -18,14 +24,44 @@ public class ServicioEvento {
 
 
     public ServicioEvento() {
-        GestorPersistencia gestor = new GestorPersistencia();
-        this.repo.cargar(gestor.cargarDatos(FICHERO_DATOS));
+//        GestorPersistencia gestor = new GestorPersistencia();
+//        this.repo.cargar(gestor.cargarDatos(FICHERO_DATOS));
     }
 
     public void guardar(){
         GestorPersistencia gestorPersistencia = new GestorPersistencia();
         gestorPersistencia.guardarDatos(repo.listar(), FICHERO_DATOS);
     }
+
+    public void exportarCatalogoAXML(String rutaArchivo){
+        try{
+            ListaEventosWrapper wrapper = new ListaEventosWrapper();
+            wrapper.setLista(this.repo.listar());
+            JAXBContext contexto = JAXBContext.newInstance(ListaEventosWrapper.class);
+            Marshaller marshaller = contexto.createMarshaller();
+            marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
+            marshaller.marshal(wrapper, new File(rutaArchivo));
+            marshaller.marshal(wrapper, System.out);
+        } catch (JAXBException e){
+            e.printStackTrace();
+        }
+    }
+
+    public void importarCatalogoDesdeXML(String rutaArchivo) {
+        try{
+            File archivo = new File(rutaArchivo);
+            JAXBContext contexto = JAXBContext.newInstance(ListaEventosWrapper.class);
+            Unmarshaller unmarshaller = contexto.createUnmarshaller();
+            ListaEventosWrapper wrapper = (ListaEventosWrapper) unmarshaller.unmarshal(archivo);
+            List<Evento> listaImportada = wrapper.getLista();
+            System.out.println("Se han importado " + listaImportada.size() + " eventos.");
+            this.repo.guardar(listaImportada);
+        } catch (JAXBException e){
+            System.err.println("Error al importar: " + e.getMessage());
+        }
+
+    }
+
 
     /**
      * Añadir un evento

@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<Conierto id="EVT-2026-COEV1">
+    <nombre>Concierto Evento 1</nombre>
+    <fecha>2021-12-31</fecha>
+    <recinto>
+        <nombre>recinto1</nombre>
+        <direccion>direccion1</direccion>
+        <aforoMaximo>100</aforoMaximo>
+        <asientosVip>false</asientosVip>
+        <asientosVip>false</asientosVip>
+        <asientosVip>false</asientosVip>
+        <asientosVip>false</asientosVip>
+        <asientosVip>false</asientosVip>
+        <asientosVip>false</asientosVip>
+        <asientosVip>false</asientosVip>
+        <asientosVip>false</asientosVip>
+        <asientosVip>false</asientosVip>
+        <asientosVip>false</asientosVip>
+    </recinto>
+    <coste>100.0</coste>
+    <estado>PLANIFICADO</estado>
+    <tipo>CONCIERTO</tipo>
+    <bandaPrincipal>Banda1</bandaPrincipal>
+    <costeMontaje>2000.0</costeMontaje>
+    <listaCanciones>Cancion1, Cancion2, Cancion23</listaCanciones>
+</Conierto>
